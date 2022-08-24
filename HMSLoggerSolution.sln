@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMSLogger", "HMSLogger\HMSLogger.csproj", "{6CD6F2AD-5BBF-4B4B-9986-9C7616B2E761}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CD6F2AD-5BBF-4B4B-9986-9C7616B2E761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD6F2AD-5BBF-4B4B-9986-9C7616B2E761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD6F2AD-5BBF-4B4B-9986-9C7616B2E761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD6F2AD-5BBF-4B4B-9986-9C7616B2E761}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E054558-5286-4572-9D4D-E3BE48F65CF3}
+	EndGlobalSection
+EndGlobal
