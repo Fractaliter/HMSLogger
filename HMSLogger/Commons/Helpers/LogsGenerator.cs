@@ -26,7 +26,7 @@ namespace HMSLogger
             //
             // Write out the results.
             //
-            string Strings =string.Empty;
+            string Strings = string.Empty;
             foreach (var value in LogInfo)
             {
                 Strings += LogInfo;
@@ -36,6 +36,13 @@ namespace HMSLogger
         public static List<string> GetList()
         {
             return LogInfo;
+
+
+        }
+        public static List<string> GeAmountofList(int id)
+        {
+            var Listindex = LogInfo.Count - id;
+            return LogInfo.GetRange(Listindex, id);
         }
     }
 }

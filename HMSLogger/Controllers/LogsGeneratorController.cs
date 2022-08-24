@@ -15,14 +15,10 @@ namespace HMSLogger.Controllers
 
 
         private readonly ILogger<LogsGeneratorController> _logger;
-        private LogWorkerService _logservice;
-        private CancellationToken stoppingToken;
         public LogsGeneratorController(ILogger<LogsGeneratorController> logger)
         {
             _logger = logger;
-            _logservice = new LogWorkerService();
             CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-            stoppingToken = cancelTokenSource.Token;
         }
 
         [HttpGet]
@@ -40,12 +36,12 @@ namespace HMSLogger.Controllers
         public List<String> GetAmountOfLogs(int id)
         {
 
-            _logger.LogInformation("visited page at {DT}", DateTime.UtcNow.ToLongTimeString());
-            LogsGenerator.Add("visited page at " + DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("GetAmountOfLog {DT}", DateTime.UtcNow.ToLongTimeString());
+            LogsGenerator.Add("GetAmountOfLog at " + DateTime.UtcNow.ToLongTimeString());
 
 
 
-            return LogsGenerator.GetList();
+            return LogsGenerator.GeAmountofList(id);
         }
     }
 }
