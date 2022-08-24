@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
+using HMSLogger.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,43 +12,30 @@ namespace HMSLogger.Controllers
     [Route("[controller]")]
     public class LogsGeneratorController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Penis", "Dupoa", "Kuba", "Ma", "Malego", "Smartfona", "Robmy", "Ten", "Projekt"
-        };
+
 
         private readonly ILogger<LogsGeneratorController> _logger;
-
+        private LogWorkerService _logservice;
+        private CancellationToken stoppingToken;
         public LogsGeneratorController(ILogger<LogsGeneratorController> logger)
         {
             _logger = logger;
+            _logservice = new LogWorkerService();
+            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            stoppingToken = cancelTokenSource.Token;
         }
 
         [HttpGet]
-        public IEnumerable<LogsGenerator> Get(int id)
+        public List<String> GetLogs()
         {
-            var rng = new Random();
+            _logservice.StartAsync(stoppingToken);
 
             _logger.LogInformation("visited page at {DT}", DateTime.UtcNow.ToLongTimeString());
+            LogsGenerator.Add("visited page at "+ DateTime.UtcNow.ToLongTimeString());
 
 
-            var loginfo = Enumerable.Range(1, 5).Select(index => new LogsGenerator
-            {
-                Date = DateTime.UtcNow,
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            });
 
-
-            _logger.LogInformation(loginfo.ToString());
-
-            return Enumerable.Range(1, 5).Select(index => new LogsGenerator
-            {
-                Date = DateTime.UtcNow,
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray(); 
+            return LogsGenerator.GetList();
         }
     }
 }

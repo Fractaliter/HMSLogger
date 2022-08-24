@@ -8,20 +8,39 @@ using System.Threading.Tasks;
 
 namespace HMSLogger.Services
 {
-    public class LogWorkerService : BackgroundService
+    public class LogWorkerService : IHostedService, IDisposable
     {
-        private readonly ILogger<LogWorkerService> _logger;
 
-        public LogWorkerService(ILogger<LogWorkerService> logger) =>
-            _logger = logger;
+        private Timer? _timer = null;
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+
+        public Task StartAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.UtcNow);
-                await Task.Delay(1000, stoppingToken);
-            }
+            LogsGenerator.Add("Timed Hosted Service started " + DateTime.UtcNow.ToLongTimeString());
+
+            _timer = new Timer(DoWork, null, TimeSpan.Zero,
+                TimeSpan.FromSeconds(5));
+
+            return Task.CompletedTask;
+        }
+
+        private void DoWork(object? state)
+        {
+
+            LogsGenerator.Add( "Timed Hosted Service is working " + DateTime.UtcNow.ToLongTimeString());
+        }
+
+        public Task StopAsync(CancellationToken stoppingToken)
+        {
+
+            _timer?.Change(Timeout.Infinite, 0);
+
+            return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
         }
     }
 }
