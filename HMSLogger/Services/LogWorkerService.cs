@@ -19,7 +19,7 @@ namespace HMSLogger.Services
             LogsGenerator.Add("Timed Hosted Service started " + DateTime.UtcNow.ToLongTimeString());
 
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(1));
 
             return Task.CompletedTask;
         }

@@ -28,10 +28,20 @@ namespace HMSLogger.Controllers
         [HttpGet]
         public List<String> GetLogs()
         {
-            _logservice.StartAsync(stoppingToken);
 
             _logger.LogInformation("visited page at {DT}", DateTime.UtcNow.ToLongTimeString());
             LogsGenerator.Add("visited page at "+ DateTime.UtcNow.ToLongTimeString());
+
+
+
+            return LogsGenerator.GetList();
+        }
+        [HttpGet("{id}")]
+        public List<String> GetAmountOfLogs(int id)
+        {
+
+            _logger.LogInformation("visited page at {DT}", DateTime.UtcNow.ToLongTimeString());
+            LogsGenerator.Add("visited page at " + DateTime.UtcNow.ToLongTimeString());
 
 
 
